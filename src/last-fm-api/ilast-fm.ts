@@ -2,4 +2,6 @@ import { IAuthorizationProvider } from './authorization-provider/iauthorization-
 
 export interface ILastFM {
 	readonly authorizationProvider: IAuthorizationProvider;
+	isAuthorized(): boolean;
+	getUsername(): string | undefined;
 }

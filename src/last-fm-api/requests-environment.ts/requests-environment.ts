@@ -40,6 +40,7 @@ export class RequestsEnvironment implements IRequestsEnvironment {
 		url.addQueryParams({
 			api_key: this._apiKey,
 			token: authenticationToken,
+			method: 'auth.getSession',
 		});
 
 		this._addSignatureAndFormat(url);

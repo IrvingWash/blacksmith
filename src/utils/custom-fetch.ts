@@ -14,5 +14,9 @@ export async function customFetch<T extends {}>(input: RequestMetainfo, body?: o
 		}
 	);
 
+	if (!response.ok) {
+		throw new Error(await response.text());
+	}
+
 	return response.json();
 }

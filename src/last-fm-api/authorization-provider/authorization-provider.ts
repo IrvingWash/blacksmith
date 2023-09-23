@@ -1,7 +1,9 @@
-import { IAuthenticationProvider } from './iauthentication-provider';
+import { customFetch } from '@utils/custom-fetch';
+
+import { IAuthorizationProvider } from './iauthorization-provider';
 import { IRequestsEnvironment } from '../requests-environment.ts/irequests-environment';
 
-export class AuthenticationProvider implements IAuthenticationProvider {
+export class AuthorizationProvider implements IAuthorizationProvider {
 	private readonly _requestsEnvironment: IRequestsEnvironment;
 
 	public constructor(requestsEnvironment: IRequestsEnvironment) {
@@ -16,5 +18,11 @@ export class AuthenticationProvider implements IAuthenticationProvider {
 		const url = new URL(window.location.href);
 
 		return url.searchParams.get('token');
+	}
+
+	public async authorize(authenticationToken: string): Promise<void> {
+		const session = await customFetch(this._requestsEnvironment.authGetSessionRequestMetainfo(authenticationToken));
+
+		console.log(session);
 	}
 }

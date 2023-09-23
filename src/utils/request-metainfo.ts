@@ -5,7 +5,7 @@ export interface RequestMetainfo {
 
 export type QueryParams = Record<string, string | number | undefined>;
 
-export enum HttpMethod {
+export const enum HttpMethod {
 	Get = 'GET',
 	Post = 'POST',
 	Put = 'PUT',

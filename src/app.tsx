@@ -19,6 +19,12 @@ export function App(): JSX.Element {
 			>
 				Grant
 			</button>
+
+			<button
+				onClick={ (): void => { lastFM.transport.userGetRecentTracks({ user: lastFM.getUsername() ?? '' }); } }
+			>
+				Recent tracks
+			</button>
 		</main>
 	);
 }

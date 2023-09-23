@@ -9,9 +9,12 @@ import { IRequestsEnvironment } from './requests-environment.ts/irequests-enviro
 import { RequestsEnvironment } from './requests-environment.ts/requests-environment';
 import { IAuthorizationProvider } from './authorization-provider/iauthorization-provider';
 import { AuthorizationProvider } from './authorization-provider/authorization-provider';
+import { ITransport } from './transport/itransport';
+import { Transport } from './transport/transport';
 
 export class LastFM implements ILastFM {
 	public readonly authorizationProvider: IAuthorizationProvider;
+	public readonly transport: ITransport;
 
 	private readonly _apiKey: string;
 	private readonly _sharedSecret: string;
@@ -29,6 +32,7 @@ export class LastFM implements ILastFM {
 		this._callSigner = new CallSigner(this._sharedSecret);
 		this._credentialStorage = new CredentialStorage();
 		this._requestsEnvironment = new RequestsEnvironment(this._baseUrl, this._apiKey, this._authenticationUrl, this._callSigner);
+		this.transport = new Transport(this._requestsEnvironment);
 
 		this.authorizationProvider = new AuthorizationProvider(this._requestsEnvironment, this._credentialStorage);
 	}

@@ -5,8 +5,13 @@ module.exports = {
 		tsconfigRootDir : __dirname, 
 		sourceType: 'module',
 	},
-	ignorePatterns: ['.eslintrc.js', 'postcss.config.js'],
-	plugins: ['@typescript-eslint/eslint-plugin', 'react'],
+	ignorePatterns: [
+		'.eslintrc.js',
+		'postcss.config.js',
+		'node_modules',
+		'dist'
+	],
+	plugins: ['@typescript-eslint/eslint-plugin', 'react', 'optional-params'],
 	root: true,
 	rules: {
 		'@typescript-eslint/explicit-function-return-type': ['error'],
@@ -20,7 +25,7 @@ module.exports = {
 		'@typescript-eslint/no-empty-interface': ['off'],
 		'no-trailing-spaces': ['error'],
 		'no-multiple-empty-lines': ['error', { max: 1 }],
-		'quotes': ['error', 'single'],
+		'quotes': ['error', 'single', { avoidEscape: true }],
 		'space-infix-ops': ['error'],
 		'react/jsx-curly-spacing': ['error', {
 			'when': 'always',
@@ -34,5 +39,6 @@ module.exports = {
 		'space-before-blocks': ['error'],
 		'jsx-quotes': ['error', 'prefer-single'],
 		'react/jsx-tag-spacing': ['error'],
+		'optional-params/max-optional-params': ['error', 1],
 	},
 };

@@ -32,9 +32,9 @@ export class LastFM implements ILastFM {
 		this._callSigner = new CallSigner(this._sharedSecret);
 		this._credentialStorage = new CredentialStorage();
 		this._requestsEnvironment = new RequestsEnvironment(this._baseUrl, this._apiKey, this._authenticationUrl, this._callSigner);
-		this.transport = new Transport(this._requestsEnvironment);
 
 		this.authorizationProvider = new AuthorizationProvider(this._requestsEnvironment, this._credentialStorage);
+		this.transport = new Transport(this._requestsEnvironment);
 	}
 
 	public isAuthorized(): boolean {

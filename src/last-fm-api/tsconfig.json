@@ -4,7 +4,7 @@
 		"composite": true
 	},
 	"references": [
-		{ "path": "../utils"}
+		{ "path": "../utils" }
 	],
 	"include": ["./**/*.ts"]
 }

@@ -5,6 +5,7 @@ import { IAppViewModel } from './iapp-view-model';
 import { Header } from '../header/header';
 import { Greeter } from '../greeter/greeter';
 import { RecentTracks } from '../recent-tracks/recent-tracks';
+import { Scrobbler } from '../scrobbler/scrobbler';
 
 import * as s from './app.pcss';
 
@@ -26,7 +27,12 @@ export function App(props: AppProps): JSX.Element {
 			<Header model={ model.headerViewModel } />
 			<main className={ s.container }>
 				{ isAuthorized$
-					? <RecentTracks model={ model.recentTracksViewModel } />
+					? (
+						<div className={ s.dashboard }>
+							<Scrobbler />
+							<RecentTracks model={ model.recentTracksViewModel } />
+						</div>
+					)
 					: <Greeter />
 				}
 			</main>

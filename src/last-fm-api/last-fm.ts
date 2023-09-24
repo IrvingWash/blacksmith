@@ -43,8 +43,8 @@ export class LastFM implements ILastFM {
 		return this._credentialStorage.load() !== null;
 	}
 
-	public getUsername(): string | undefined {
-		return this._credentialStorage.load()?.session.name;
+	public getUsername(): string | null {
+		return this._credentialStorage.load()?.session.name ?? null;
 	}
 
 	public async getRecentTracks(payload: GetRecentTracksPayload): Promise<RecentTrack[]> {

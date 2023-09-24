@@ -6,6 +6,6 @@ export interface ILastFM {
 	readonly authorizationProvider: IAuthorizationProvider;
 
 	isAuthorized(): boolean;
-	getUsername(): string | undefined;
+	getUsername(): string | null;
 	getRecentTracks(payload: GetRecentTracksPayload): Promise<RecentTrack[]>;
 }

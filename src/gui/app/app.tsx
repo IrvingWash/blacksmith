@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 
 import { IAppViewModel } from './iapp-view-model';
+import { Header } from '../header/header';
+import { Greeter } from '../greeter/greeter';
+import { useObservable } from 'gorgona';
 
 interface AppProps {
 	model: IAppViewModel;
@@ -9,17 +12,21 @@ interface AppProps {
 export function App(props: AppProps): JSX.Element {
 	const { model } = props;
 
+	const isAuthorized$ = useObservable(model.isAuthorized$, model.isAuthorized());
+
 	useEffect(() => {
-		model.lastFM.authorizationProvider.authorize();
-	}, []);
+		model.authorizeLastFM();
+	});
 
 	return (
-		<main>
-			<button
-				onClick={ (): void => model.lastFM.authorizationProvider.requestAccess(window.location.href) }
-			>
-				Authenticate
-			</button>
-		</main>
+		<>
+			<Header model={ model.headerViewModel } />
+			<main>
+				{ isAuthorized$
+					? null
+					: <Greeter />
+				}
+			</main>
+		</>
 	);
 }

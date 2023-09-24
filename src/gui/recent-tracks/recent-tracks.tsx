@@ -25,22 +25,22 @@ export function RecentTracks(props: RecentTracksProps): JSX.Element {
 
 	return (
 		<div className={ s.container }>
-			<SectionTitle title='recent tracks' />
+			<div className={ s.header }>
+				<SectionTitle title='recent tracks' />
+				<ActionButton
+					className={ s.button }
+					onClick={ reloadButtonClickHandler }
+				>
+					Reload
+				</ActionButton>
+			</div>
 
 		{ isLoading$
 			? 'Loading...'
 			: (
-				<div className={ s.listContainer }>
-					<ul className={ s.list }>
-						{ renderRecentTracks() }
-					</ul>
-					<ActionButton
-						className={ s.button }
-						onClick={ reloadButtonClickHandler }
-					>
-						Reload
-					</ActionButton>
-				</div>
+				<ul className={ s.list }>
+					{ renderRecentTracks() }
+				</ul>
 			)
 		}
 		</div>

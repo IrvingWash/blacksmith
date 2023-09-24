@@ -1,7 +1,7 @@
 {
 	"name": "blacksmith",
 	"version": "1.0.0",
-	"description": "",
+	"description": "last.fm scrobbler",
 	"main": "index.tsx",
 	"scripts": {
 		"start": "webpack serve --config webpack/webpack.config.ts --env env=dev",
@@ -15,7 +15,7 @@
 		"url": "https://github.com/IrvingWash/blacksmith"
 	},
 	"author": "WI",
-	"license": "ISC",
+	"license": "MIT",
 	"homepage": "",
 	"devDependencies": {
 		"@types/dotenv-webpack": "^7.0.3",

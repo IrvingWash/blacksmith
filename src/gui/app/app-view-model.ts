@@ -6,11 +6,14 @@ import { LastFM } from '@last-fm-api/last-fm';
 import { IAppViewModel } from './iapp-view-model';
 import { IHeaderViewModel } from '../header/iheader-view-model';
 import { HeaderViewModel } from '../header/header-view-model';
+import { IRecentTracksViewModel } from '../recent-tracks/irecent-tracks-view-model';
+import { RecentTracksViewModel } from '../recent-tracks/recent-tracks-view-model';
 
 export class AppViewModel implements IAppViewModel {
 	public readonly lastFM: ILastFM;
 
 	public readonly headerViewModel: IHeaderViewModel;
+	public readonly recentTracksViewModel: IRecentTracksViewModel;
 
 	public readonly isAuthorized$: Observable<boolean>;
 
@@ -20,6 +23,7 @@ export class AppViewModel implements IAppViewModel {
 		this.lastFM = new LastFM();
 
 		this.headerViewModel = new HeaderViewModel(this.lastFM);
+		this.recentTracksViewModel = new RecentTracksViewModel(this.lastFM);
 
 		this._isAuthorized$ = new Subject(this.lastFM.isAuthorized());
 

@@ -44,8 +44,8 @@ export function convertLastFMRecentTrack(lastFMRecentTrack: LastFMRecentTrack): 
 
 	return {
 		title: name,
-		artist: artist['#text'],
-		albumTitle: album['#text'],
+		artist: artist.name,
+		albumTitle: album['#text'] === '' ? undefined : album['#text'],
 		scrobbleDate: date['#text'],
 		url,
 		image: image.map(convertLastFMImage),

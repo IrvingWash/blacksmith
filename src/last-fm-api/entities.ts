@@ -47,7 +47,7 @@ export interface LastFMRecentTrack {
 		mbid: string;
 	};
 	artist: {
-		'#text': string;
+		name: string;
 		mbid: string;
 	};
 	date: {

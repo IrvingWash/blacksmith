@@ -4,6 +4,8 @@ import {
 	LastFMAlbumGetInfoPayload,
 	LastFMAlbumInfo,
 	LastFMRecentTracks,
+	LastFMScrobbleResult,
+	LastFMTrackScrobblePayload,
 	LastFMUserGetRecentTracksPayload,
 } from '../entities';
 
@@ -29,5 +31,11 @@ export class Transport implements ITransport {
 		const albumInfo = await customFetch<LastFMAlbumInfo>(this._requestsEnvironment.albumGetInfoRequestMetainfo(payload));
 
 		return albumInfo;
+	}
+
+	public async trackScrobble(payload: LastFMTrackScrobblePayload): Promise<LastFMScrobbleResult> {
+		const scrobbleResult = await customFetch<LastFMScrobbleResult>(this._requestsEnvironment.trackScrobbleRequestMetainfo(payload));
+
+		return scrobbleResult;
 	}
 }

@@ -17,6 +17,17 @@ export interface GetAlbumInfoPayload {
 	language?: string;
 }
 
+export interface ScrobbleTrackPayload {
+	artistName: string;
+	trackTitle: string;
+	timestamp: number;
+	albumTitle?: string;
+}
+
+export interface ScrobbleResult {
+	isSuccessful: boolean;
+}
+
 export interface AlbumInfo {
 	id: string;
 	title: string;

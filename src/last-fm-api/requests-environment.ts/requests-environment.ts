@@ -4,21 +4,35 @@ import {
 	RequestUrl,
 } from '@utils/request-metainfo';
 
+import {
+	LastFMAlbumGetInfoPayload,
+	LastFMTrackScrobblePayload,
+	LastFMUserGetRecentTracksPayload,
+} from '../entities';
+
 import { IRequestsEnvironment } from './irequests-environment';
 import { ICallSigner } from '../call-signer/icall-signer';
-import { LastFMAlbumGetInfoPayload, LastFMUserGetRecentTracksPayload } from '../entities';
+import { ICredentialStorage } from '../credential-storage/icredential-storage';
 
 export class RequestsEnvironment implements IRequestsEnvironment {
 	private readonly _baseUrl: string;
 	private readonly _apiKey: string;
 	private readonly _authenticationUrl: string;
 	private readonly _callSigner: ICallSigner;
+	private readonly _credentialStorage: ICredentialStorage;
 
-	public constructor(baseUrl: string, apiKey: string, authenticationUrl: string, callSigner: ICallSigner) {
+	public constructor(
+		baseUrl: string,
+		apiKey: string,
+		authenticationUrl: string,
+		callSigner: ICallSigner,
+		credentialStorage: ICredentialStorage
+	) {
 		this._baseUrl = baseUrl;
 		this._apiKey = apiKey;
 		this._authenticationUrl = authenticationUrl;
 		this._callSigner = callSigner;
+		this._credentialStorage = credentialStorage;
 	}
 
 	public authRequestMetainfo(callbackUrl: string): RequestMetainfo {
@@ -83,6 +97,24 @@ export class RequestsEnvironment implements IRequestsEnvironment {
 		return {
 			url,
 			method: HttpMethod.Get,
+		};
+	}
+
+	public trackScrobbleRequestMetainfo(payload: LastFMTrackScrobblePayload): RequestMetainfo {
+		const url = new RequestUrl(this._baseUrl);
+
+		url.addQueryParams({
+			...payload,
+			method: 'track.scrobble',
+			api_key: this._apiKey,
+			sk: this._credentialStorage.load()?.session.key, // If doesn't work, try to move this below signing
+		});
+
+		this._addSignatureAndFormat(url);
+
+		return {
+			url,
+			method: HttpMethod.Post,
 		};
 	}
 

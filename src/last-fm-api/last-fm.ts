@@ -1,5 +1,13 @@
+import {
+	AlbumInfo,
+	GetAlbumInfoPayload,
+	GetRecentTracksPayload,
+	RecentTrack,
+	ScrobbleResult,
+	ScrobbleTrackPayload,
+} from '@domain/entities';
+
 import { EnvExtractor } from '@utils/env-extractor';
-import { AlbumInfo, GetAlbumInfoPayload, GetRecentTracksPayload, RecentTrack } from '@domain/entities';
 
 import { ILastFM } from './ilast-fm';
 import { ICallSigner } from './call-signer/icall-signer';
@@ -14,6 +22,7 @@ import { ITransport } from './transport/itransport';
 import { Transport } from './transport/transport';
 import { convertGetRecentTracksPayload, convertLastFMRecentTrack } from './converters/recent-track-converter';
 import { convertGetAlbumInfoPayload, convertLastFMAlbumInfo } from './converters/album-info-converter';
+import { convertLastFMScrobbleResult, convertScrobbleTrackPayload } from './converters/scrobble-converter';
 
 export class LastFM implements ILastFM {
 	public readonly authorizationProvider: IAuthorizationProvider;
@@ -34,7 +43,14 @@ export class LastFM implements ILastFM {
 
 		this._callSigner = new CallSigner(this._sharedSecret);
 		this._credentialStorage = new CredentialStorage();
-		this._requestsEnvironment = new RequestsEnvironment(this._baseUrl, this._apiKey, this._authenticationUrl, this._callSigner);
+
+		this._requestsEnvironment = new RequestsEnvironment(
+			this._baseUrl,
+			this._apiKey,
+			this._authenticationUrl,
+			this._callSigner,
+			this._credentialStorage
+		);
 
 		this.authorizationProvider = new AuthorizationProvider(this._requestsEnvironment, this._credentialStorage);
 		this._transport = new Transport(this._requestsEnvironment);
@@ -58,5 +74,11 @@ export class LastFM implements ILastFM {
 		const albumInfo = await this._transport.albumGetInfo(convertGetAlbumInfoPayload(payload));
 
 		return convertLastFMAlbumInfo(albumInfo);
+	}
+
+	public async scrobbleTrack(payload: ScrobbleTrackPayload): Promise<ScrobbleResult> {
+		const scrobbleResult = await this._transport.trackScrobble(convertScrobbleTrackPayload(payload));
+
+		return convertLastFMScrobbleResult(scrobbleResult);
 	}
 }

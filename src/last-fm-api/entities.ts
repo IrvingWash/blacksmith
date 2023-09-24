@@ -36,6 +36,52 @@ export interface LastFMAlbumTracks {
 	track: LastFMAlbumTrack[]
 }
 
+export interface LastFMTrackScrobblePayload {
+	artist: string;
+	track: string;
+	timestamp: number;
+	album?: string;
+	context?: string;
+	streamId?: string;
+	chosenByUser?: 1 | 0;
+	trackNumber?: number;
+	mbid?: string;
+	albumArtist?: string;
+	duration?: number;
+}
+
+export interface LastFMScrobbleResult {
+	scrobbles: {
+		'@attr': {
+			accepted: number;
+			ignored: number;
+		};
+		scrobble: {
+			album: {
+				'#text': string;
+				corrected: string;
+			};
+			albumArtist: {
+				'#text': string;
+				corrected: string;
+			};
+			artist: {
+				'#text': string;
+				corrected: string;
+			};
+			ignoredMessage: {
+				'#text': string;
+				corrected: string;
+			};
+			timestamp: string;
+			track: {
+				'#text': string;
+				corrected: string;
+			};
+		};
+	};
+}
+
 export interface LastFMAlbumTrack {
 	'@attr': {
 		rank: number;

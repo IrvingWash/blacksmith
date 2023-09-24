@@ -11,8 +11,6 @@ interface RecentTrackItemProps {
 export function RecentTrackItem(props: RecentTrackItemProps): JSX.Element {
 	const { track } = props;
 
-	console.log(track.albumTitle);
-
 	return (
 		<li className={ s.container }>
 			<div>
@@ -23,7 +21,7 @@ export function RecentTrackItem(props: RecentTrackItemProps): JSX.Element {
 				}
 				<p>date: { track.scrobbleDate }</p>
 			</div>
-			<img className={ s.icon } src={ track.image.find((i) => i.size === TrackImageSize.Medium)?.url } />
+			<img className={ s.icon } src={ track.image.find((variant) => variant.size === TrackImageSize.Medium)?.url } />
 		</li>
 	);
 }

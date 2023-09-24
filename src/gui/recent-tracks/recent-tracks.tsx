@@ -5,9 +5,9 @@ import { ActionButton } from '@ui-kit/components/action-button/action-button';
 import { SectionTitle } from '@ui-kit/components/section-title/section-title';
 
 import { IRecentTracksViewModel } from './irecent-tracks-view-model';
+import { RecentTrackItem } from './recent-track-item';
 
 import * as s from './recent-tracks.pcss';
-import { RecentTrackItem } from './recent-track-item';
 
 interface RecentTracksProps {
 	model: IRecentTracksViewModel;
@@ -17,26 +17,32 @@ export function RecentTracks(props: RecentTracksProps): JSX.Element {
 	const { model } = props;
 
 	const recentTracks$ = useObservable(model.recentTracks$, model.getRecentTracks());
+	const isLoading$ = useObservable(model.isLoading$, false);
 
 	useEffect(() => {
 		model.fetchRecentTracks();
 	}, []);
 
 	return (
-		<div>
+		<div className={ s.container }>
 			<SectionTitle title='recent tracks' />
 
-		<div className={ s.listContainer }>
-			<ul className={ s.list }>
-				{ renderRecentTracks() }
-			</ul>
-			<ActionButton
-				className={ s.button }
-				onClick={ reloadButtonClickHandler }
-			>
-				Reload
-			</ActionButton>
-		</div>
+		{ isLoading$
+			? 'Loading...'
+			: (
+				<div className={ s.listContainer }>
+					<ul className={ s.list }>
+						{ renderRecentTracks() }
+					</ul>
+					<ActionButton
+						className={ s.button }
+						onClick={ reloadButtonClickHandler }
+					>
+						Reload
+					</ActionButton>
+				</div>
+			)
+		}
 		</div>
 	);
 

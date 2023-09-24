@@ -41,6 +41,10 @@ export class AppViewModel implements IAppViewModel {
 
 		await this.lastFM.authorizationProvider.authorize();
 
+		if (!this.lastFM.isAuthorized()) {
+			return;
+		}
+
 		this._isAuthorized$.setValue(true);
 		this.headerViewModel.setUsername(this.lastFM.getUsername());
 	}

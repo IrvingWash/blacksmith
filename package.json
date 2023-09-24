@@ -8,7 +8,9 @@
 		"build": "webpack --config webpack/webpack.config.ts --env env=prod",
 		"lint": "eslint \"{src,apps,libs,test}/**/*.{ts,tsx}\" --max-warnings=0",
 		"check": "tsc --noEmit",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
 	},
 	"repository": {
 		"type": "git",
@@ -16,7 +18,7 @@
 	},
 	"author": "WI",
 	"license": "MIT",
-	"homepage": "",
+	"homepage": "irvingwash.github.io/blacksmith",
 	"devDependencies": {
 		"@types/dotenv-webpack": "^7.0.3",
 		"@types/md5": "^2.3.2",
@@ -32,6 +34,7 @@
 		"eslint": "^8.38.0",
 		"eslint-plugin-optional-params": "^0.0.5",
 		"eslint-plugin-react": "^7.32.2",
+		"gh-pages": "^6.0.0",
 		"html-webpack-plugin": "^5.5.1",
 		"husky": "^8.0.3",
 		"mini-css-extract-plugin": "^2.7.5",

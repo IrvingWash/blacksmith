@@ -1,5 +1,5 @@
 import { EnvExtractor } from '@utils/env-extractor';
-import { GetRecentTracksPayload, RecentTrack } from '@domain/entities';
+import { AlbumInfo, GetAlbumInfoPayload, GetRecentTracksPayload, RecentTrack } from '@domain/entities';
 
 import { ILastFM } from './ilast-fm';
 import { ICallSigner } from './call-signer/icall-signer';
@@ -13,6 +13,7 @@ import { AuthorizationProvider } from './authorization-provider/authorization-pr
 import { ITransport } from './transport/itransport';
 import { Transport } from './transport/transport';
 import { convertGetRecentTracksPayload, convertLastFMRecentTrack } from './converters/recent-track-converter';
+import { convertGetAlbumInfoPayload, convertLastFMAlbumInfo } from './converters/album-info-converter';
 
 export class LastFM implements ILastFM {
 	public readonly authorizationProvider: IAuthorizationProvider;
@@ -51,5 +52,11 @@ export class LastFM implements ILastFM {
 		const lastFMRecentTracks = await this._transport.userGetRecentTracks(convertGetRecentTracksPayload(payload));
 
 		return lastFMRecentTracks.recenttracks.track.map(convertLastFMRecentTrack);
+	}
+
+	public async getAlbumInfo(payload: GetAlbumInfoPayload): Promise<AlbumInfo> {
+		const albumInfo = await this._transport.albumGetInfo(convertGetAlbumInfoPayload(payload));
+
+		return convertLastFMAlbumInfo(albumInfo);
 	}
 }

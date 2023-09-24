@@ -8,6 +8,63 @@ export interface LastFMSession {
 	}
 }
 
+export interface LastFMAlbumGetInfoPayload {
+	artist: string;
+	album: string;
+	mbid?: string;
+	autocorrect?: 1 | 0;
+	username?: string;
+	lang?: string;
+}
+
+export interface LastFMAlbumInfo {
+	album: {
+		artist: string;
+		listeners: string;
+		mbid: string;
+		image: LastFMImage[];
+		name: string;
+		playcount: string;
+		tags: LastFMTag[];
+		tracks: LastFMAlbumTracks;
+		wiki: LastFMWiki;
+		url: string;
+	}
+}
+
+export interface LastFMAlbumTracks {
+	track: LastFMAlbumTrack[]
+}
+
+export interface LastFMAlbumTrack {
+	'@attr': {
+		rank: number;
+	};
+	artist: {
+		mbid: string;
+		name: string;
+		url: string;
+	};
+	duration: number;
+	name: string;
+	streamable: {
+		'#text': string;
+		fulltrack: string;
+	};
+	url: string;
+}
+
+export interface LastFMTag {
+	url: string;
+	name: string;
+}
+
+export interface LastFMWiki {
+	content: string;
+	published: string;
+	summary: string;
+}
+
 export interface LastFMUserGetRecentTracksPayload {
 	user: string;
 
@@ -74,4 +131,5 @@ export const enum LastFMImageSize {
 	Medium = 'medium',
 	Large = 'large',
 	ExtraLarge = 'extralarge',
+	Mega = 'mega',
 }

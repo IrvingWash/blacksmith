@@ -1,7 +1,7 @@
 import {
 	GetRecentTracksPayload,
 	RecentTrack,
-	TrackImage,
+	MediaImage,
 	TrackImageSize,
 } from '@domain/entities';
 
@@ -40,9 +40,11 @@ export function convertLastFMRecentTrack(lastFMRecentTrack: LastFMRecentTrack): 
 		image,
 		name,
 		url,
+		mbid,
 	} = lastFMRecentTrack;
 
 	return {
+		id: mbid,
 		title: name,
 		artist: artist.name,
 		albumTitle: album['#text'] === '' ? undefined : album['#text'],
@@ -57,9 +59,10 @@ const lastFMtrackImageSizeToImageSizeMap: Readonly<Record<LastFMImageSize, Track
 	[LastFMImageSize.Medium]: TrackImageSize.Medium,
 	[LastFMImageSize.Large]: TrackImageSize.Large,
 	[LastFMImageSize.ExtraLarge]: TrackImageSize.ExtraLarge,
+	[LastFMImageSize.Mega]: TrackImageSize.Mega,
 } as const;
 
-function convertLastFMImage(lastFMImage: LastFMImage): TrackImage {
+function convertLastFMImage(lastFMImage: LastFMImage): MediaImage {
 	return {
 		url: lastFMImage['#text'],
 		size: lastFMtrackImageSizeToImageSizeMap[lastFMImage.size],

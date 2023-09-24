@@ -6,7 +6,7 @@ import {
 
 import { IRequestsEnvironment } from './irequests-environment';
 import { ICallSigner } from '../call-signer/icall-signer';
-import { LastFMUserGetRecentTracksPayload } from '../entities';
+import { LastFMAlbumGetInfoPayload, LastFMUserGetRecentTracksPayload } from '../entities';
 
 export class RequestsEnvironment implements IRequestsEnvironment {
 	private readonly _baseUrl: string;
@@ -58,6 +58,23 @@ export class RequestsEnvironment implements IRequestsEnvironment {
 		url.addQueryParams({
 			...payload,
 			method: 'user.getRecentTracks',
+			api_key: this._apiKey,
+		});
+
+		this._addSignatureAndFormat(url);
+
+		return {
+			url,
+			method: HttpMethod.Get,
+		};
+	}
+
+	public albumGetInfoRequestMetainfo(payload: LastFMAlbumGetInfoPayload): RequestMetainfo {
+		const url = new RequestUrl(this._baseUrl);
+
+		url.addQueryParams({
+			...payload,
+			method: 'album.getInfo',
 			api_key: this._apiKey,
 		});
 

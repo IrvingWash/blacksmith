@@ -47,8 +47,8 @@ export function RecentTracks(props: RecentTracksProps): JSX.Element {
 	);
 
 	function renderRecentTracks(): JSX.Element[] {
-		return recentTracks$.map((track) => {
-			return <RecentTrackItem track={ track } />;
+		return recentTracks$.map((track, i) => {
+			return <RecentTrackItem key={ track.id + i } track={ track } />;
 		});
 	}
 

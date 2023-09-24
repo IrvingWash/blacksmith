@@ -9,16 +9,39 @@ export interface GetRecentTracksPayload {
 	extendedData?: boolean;
 }
 
+export interface GetAlbumInfoPayload {
+	artist: string;
+	album: string;
+	shouldAutoCorrect?: boolean;
+	username?: string;
+	language?: string;
+}
+
+export interface AlbumInfo {
+	id: string;
+	title: string;
+	artist: string;
+	tracks: AlbumTrack[];
+}
+
+export interface AlbumTrack {
+	number: number;
+	title: string;
+	artistName: string;
+	albumTitle: string;
+}
+
 export interface RecentTrack {
+	id: string;
 	title: string;
 	artist: string;
 	scrobbleDate: string;
 	url: string;
-	image: TrackImage[];
+	image: MediaImage[];
 	albumTitle?: string;
 }
 
-export interface TrackImage {
+export interface MediaImage {
 	size: TrackImageSize;
 	url: string;
 }
@@ -28,4 +51,5 @@ export const enum TrackImageSize {
 	Medium = 'M',
 	Large = 'L',
 	ExtraLarge = 'XL',
+	Mega = 'MEGA',
 }

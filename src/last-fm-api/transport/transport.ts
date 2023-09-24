@@ -1,6 +1,12 @@
 import { customFetch } from '@utils/custom-fetch';
 
-import { LastFMRecentTracks, LastFMUserGetRecentTracksPayload } from '../entities';
+import {
+	LastFMAlbumGetInfoPayload,
+	LastFMAlbumInfo,
+	LastFMRecentTracks,
+	LastFMUserGetRecentTracksPayload,
+} from '../entities';
+
 import { IRequestsEnvironment } from '../requests-environment.ts/irequests-environment';
 import { ITransport } from './itransport';
 
@@ -17,5 +23,11 @@ export class Transport implements ITransport {
 		);
 
 		return recentTracks;
+	}
+
+	public async albumGetInfo(payload: LastFMAlbumGetInfoPayload): Promise<LastFMAlbumInfo> {
+		const albumInfo = await customFetch<LastFMAlbumInfo>(this._requestsEnvironment.albumGetInfoRequestMetainfo(payload));
+
+		return albumInfo;
 	}
 }

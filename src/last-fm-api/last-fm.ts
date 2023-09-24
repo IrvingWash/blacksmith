@@ -29,8 +29,8 @@ export class LastFM implements ILastFM {
 
 	private readonly _apiKey: string;
 	private readonly _sharedSecret: string;
-	private readonly _baseUrl: string = 'http://ws.audioscrobbler.com/2.0/';
-	private readonly _authenticationUrl: string = 'http://www.last.fm/api/auth/';
+	private readonly _baseUrl: string = 'https://ws.audioscrobbler.com/2.0/';
+	private readonly _authenticationUrl: string = 'https://www.last.fm/api/auth/';
 
 	private readonly _callSigner: ICallSigner;
 	private readonly _credentialStorage: ICredentialStorage;

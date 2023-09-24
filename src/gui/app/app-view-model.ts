@@ -8,12 +8,15 @@ import { IHeaderViewModel } from '../header/iheader-view-model';
 import { HeaderViewModel } from '../header/header-view-model';
 import { IRecentTracksViewModel } from '../recent-tracks/irecent-tracks-view-model';
 import { RecentTracksViewModel } from '../recent-tracks/recent-tracks-view-model';
+import { IAlbumScrobblerViewModel } from '../album-scrobbler/ialbum-scrobbler-view-model';
+import { AlbumScrobblerViewModel } from '../album-scrobbler/album-scrobbler-view-model';
 
 export class AppViewModel implements IAppViewModel {
 	public readonly lastFM: ILastFM;
 
 	public readonly headerViewModel: IHeaderViewModel;
 	public readonly recentTracksViewModel: IRecentTracksViewModel;
+	public readonly albumScrobblerViewModel: IAlbumScrobblerViewModel;
 
 	public readonly isAuthorized$: Observable<boolean>;
 
@@ -24,6 +27,7 @@ export class AppViewModel implements IAppViewModel {
 
 		this.headerViewModel = new HeaderViewModel(this.lastFM);
 		this.recentTracksViewModel = new RecentTracksViewModel(this.lastFM);
+		this.albumScrobblerViewModel = new AlbumScrobblerViewModel(this.lastFM);
 
 		this._isAuthorized$ = new Subject(this.lastFM.isAuthorized());
 

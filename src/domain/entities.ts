@@ -14,7 +14,7 @@ export interface RecentTrack {
 	artist: string;
 	scrobbleDate: string;
 	url: string;
-	image: TrackImage;
+	image: TrackImage[];
 	albumTitle?: string;
 }
 

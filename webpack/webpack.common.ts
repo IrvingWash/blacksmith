@@ -1,25 +1,26 @@
-import path from 'path';
+import { resolve } from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import Dotenv from 'dotenv-webpack';
 import { Configuration } from 'webpack';
 
 const commonConfig: Configuration = {
-	entry: path.resolve(__dirname, '..', './src/index.tsx'),
+	entry: resolve(__dirname, '..', './src/index.tsx'),
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js'],
 		modules: [
-			path.resolve(__dirname, '..', 'node_modules'),
-			path.resolve(__dirname, '..', './'),
+			resolve(__dirname, '..', 'node_modules'),
+			resolve(__dirname, '..', './'),
 		],
 		alias: {
-			'@ui-kit': path.resolve(__dirname, '..', './src/ui-kit'),
-			'@utils': path.resolve(__dirname, '..', './src/utils'),
+			'@ui-kit': resolve(__dirname, '..', './src/ui-kit'),
+			'@utils': resolve(__dirname, '..', './src/utils'),
+			'@domain': resolve(__dirname, '..', './src/domain'),
 		},
 	},
 	output: {
 		filename: 'bundle.js',
-		path: path.resolve(__dirname, '..', 'dist'),
+		path: resolve(__dirname, '..', 'dist'),
 		publicPath: '/',
 	},
 	module: {
@@ -56,7 +57,7 @@ const commonConfig: Configuration = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, '..', './src/index.html'),
+			template: resolve(__dirname, '..', './src/index.html'),
 		}),
 		new MiniCssExtractPlugin(),
 		new Dotenv({ systemvars: true }),

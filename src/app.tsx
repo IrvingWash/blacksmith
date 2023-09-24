@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { LastFM } from './last-fm-api/last-fm';
+import { RecentTrack } from '@domain/entities';
 
 export function App(): JSX.Element {
 	const lastFM = new LastFM();
@@ -21,7 +22,7 @@ export function App(): JSX.Element {
 			</button>
 
 			<button
-				onClick={ (): void => { lastFM.transport.userGetRecentTracks({ user: lastFM.getUsername() ?? '' }); } }
+				onClick={ (): Promise<void | RecentTrack[]> => lastFM.getRecentTracks({ username: lastFM.getUsername() ?? '' }).then((tracks) => console.log(tracks)) }
 			>
 				Recent tracks
 			</button>

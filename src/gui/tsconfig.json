@@ -1,0 +1,12 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"composite": true
+	},
+	"references": [
+		{ "path": "../utils" },
+		{ "path": "../domain" },
+		{ "path": "../last-fm-api"}
+	],
+	"include": ["./**/*.ts"]
+}

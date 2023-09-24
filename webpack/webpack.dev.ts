@@ -3,6 +3,9 @@ import { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
 const devConfig: Configuration = {
 	mode: 'development',
+	output: {
+		publicPath: '/',
+	},
 	devServer: {
 		hot: true,
 		open: false,

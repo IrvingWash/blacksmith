@@ -16,6 +16,7 @@ const commonConfig: Configuration = {
 			'@ui-kit': resolve(__dirname, '..', './src/ui-kit'),
 			'@utils': resolve(__dirname, '..', './src/utils'),
 			'@domain': resolve(__dirname, '..', './src/domain'),
+			'@last-fm-api': resolve(__dirname, '..', './src/last-fm-api'),
 		},
 	},
 	output: {

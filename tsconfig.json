@@ -11,6 +11,7 @@
 			"@ui-kit/*": ["./src/ui-kit/*"],
 			"@utils/*": ["./src/utils/*"],
 			"@domain/*": ["./src/domain/*"],
+			"@last-fm-api/*": ["./src/last-fm-api/*"]
 		},
 		"resolveJsonModule": true,
 		"allowJs": true,

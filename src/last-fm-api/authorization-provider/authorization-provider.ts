@@ -8,29 +8,42 @@ import { LastFMSession } from '../entities';
 export class AuthorizationProvider implements IAuthorizationProvider {
 	private readonly _requestsEnvironment: IRequestsEnvironment;
 	private readonly _credentialStorage: ICredentialStorage;
+	private _authenticationToken: string | null;
 
 	public constructor(requestsEnvironment: IRequestsEnvironment, credentialStorage: ICredentialStorage) {
 		this._requestsEnvironment = requestsEnvironment;
 		this._credentialStorage = credentialStorage;
+
+		this._authenticationToken = this._tryToExtractAuthenticationToken();
 	}
 
 	public requestAccess(callbackUrl: string): void {
 		window.open(this._requestsEnvironment.authRequestMetainfo(callbackUrl).url, '_self');
 	}
 
-	public getAuthenticationToken(): string | null {
-		const url = new URL(window.location.href);
+	public async authorize(): Promise<void> {
+		if (this._authenticationToken === null) {
+			return;
+		}
 
-		return url.searchParams.get('token');
-	}
-
-	public async authorize(authenticationToken: string): Promise<void> {
-		const session = await customFetch<LastFMSession>(this._requestsEnvironment.authGetSessionRequestMetainfo(authenticationToken));
+		const session = await customFetch<LastFMSession>(
+			this._requestsEnvironment.authGetSessionRequestMetainfo(this._authenticationToken)
+		);
 
 		this._credentialStorage.save(session);
 	}
 
-	public logout(): void {
+	public signOut(): void {
 		this._credentialStorage.clear();
+	}
+
+	private _tryToExtractAuthenticationToken(): string | null {
+		if (this._credentialStorage.load() !== null) {
+			return null;
+		}
+
+		const url = new URL(window.location.href);
+
+		return url.searchParams.get('token');
 	}
 }
